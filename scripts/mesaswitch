@@ -11,7 +11,7 @@ mkdir -p $cachedir/mesa/aarch64/zink
 mkdir -p $cachedir/mesa/armhf/turnip
 mkdir -p $cachedir/mesa/armhf/zink
 
-[[ ! -f ${cachedir}/mesa/${arch}/${type}/${type}_${date}${revision}.tar.xz ]] && wget https://github.com/Pipetto-crypto/mesa-builds/raw/master/${arch}/${type}/${type}_${date}${revision}.tar.xz -P ${cachedir}/mesa/${arch}/${type}
+wget https://github.com/Pipetto-crypto/mesa-builds/raw/master/${arch}/${type}/${type}_${date}${revision}.tar.xz -P ${cachedir}/mesa/${arch}/${type}
 
 if [ $arch == "armhf" ]
 then
@@ -19,3 +19,9 @@ then
 else
      tar -xf ${cachedir}/mesa/${arch}/${type}/${type}_${date}${revision}.tar.xz -C $PREFIX/glibc/lib
 fi
+
+export PATH=/data/data/com.termux/files/usr/bin
+unset LD_LIBRARY_PATH
+$PREFIX/glibc/opt/WinScripts/exit.sh
+sleep 3
+winedesktop >/dev/null 2>&1 &
