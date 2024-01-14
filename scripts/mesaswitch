@@ -20,6 +20,8 @@ else
      tar -xf ${cachedir}/mesa/${arch}/${type}/${type}_${date}${revision}.tar.xz -C $PREFIX/glibc/lib
 fi
 
+#!/data/data/com.termux/files/usr/bin/bash
+
 export PATH=/data/data/com.termux/files/usr/bin
 unset LD_LIBRARY_PATH
 $PREFIX/glibc/opt/WinScripts/exit.sh
