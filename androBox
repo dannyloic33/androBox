@@ -54,7 +54,7 @@ exec /system/bin/app_process / com.termux.x11.Loader >/dev/null 2>&1 &
 getcommitmessage(){
 
 cd $HOME
-git clone --filter=blob:none --no-checkout --single-branch --branch androBoxNew https://github.com/Pipetto-crypto/androBox.git >/dev/null 2>&1
+git clone --filter=blob:none --no-checkout --single-branch --branch androBoxNew https://github.com/dannyloic33/androBox.git >/dev/null 2>&1
 cd androBox
 log="$(git log -n 1 --pretty=format:%B -- $1 | cut -d':' -f2-)"
 rm -rf $HOME/androBox
@@ -65,7 +65,7 @@ echo "$log"
 apply_last_patch(){
 
 echo -e "\nChecking for available patches..."
-lastavailablepatch="$(curl -sL https://github.com/Pipetto-crypto/androBox/raw/androBoxNew/patches/patch.tar.xz | sha1sum | awk '{print $1}')"
+lastavailablepatch="$(curl -sL https://github.com/dannyloic33/androBox/raw/androBoxNew/patches/patch.tar.xz | sha1sum | awk '{print $1}')"
 lastinstalledpatch="$(cat /sdcard/androBox/.patch1sum)"
 isonline="$(ping -w1 -q -c1 google.com &>/dev/null && echo $?)"
 
@@ -89,7 +89,7 @@ update_scripts(){
 isonline="$(ping -w1 -q -c1 google.com &>/dev/null && echo $?)"
 echo -e "\nChecking for available scripts update..."
 touch /sdcard/androBox/.lastupdated
-lastavailablecommit="$(git ls-remote --heads https://github.com/Pipetto-crypto/androBox.git | grep refs/heads/androBoxNew | awk '{print $1}')"
+lastavailablecommit="$(git ls-remote --heads https://github.com/dannyloic33/androBox.git | grep refs/heads/androBoxNew | awk '{print $1}')"
 lastinstalledcommit="$(cat /sdcard/androBox/.lastupdated | head -n1)"
 lastinstalledcommitmessage="$(cat /sdcard/androBox/.lastupdated | tail -n1)"
 lastavailablecommitmessage="$(getcommitmessage scripts)"
@@ -118,13 +118,13 @@ update_androbox(){
 isonline="$(ping -w1 -q -c1 google.com &>/dev/null && echo $?)"
 if [ "$isonline" == "0" ]
 then 
-     remotesum="$(curl -sL https://raw.githubusercontent.com/Pipetto-crypto/androBox/androBoxNew/androBox | sha1sum | awk '{print $1}')"
+     remotesum="$(curl -sL https://raw.githubusercontent.com/dannyloic33/androBox/androBoxNew/androBox | sha1sum | awk '{print $1}')"
      localsum="$(sha1sum $PATH/androBox | awk '{print $1}')"
      if [ "$remotesum" != "$localsum" ]
      then
           printf "\nYou are downloading an update to androBox which commit message is:%s\n" "$(getcommitmessage androBox)"
           echo -e "\nInstalling new androBox update, remember to relaunch after update is done..."   
-          wget -q https://raw.githubusercontent.com/Pipetto-crypto/androBox/androBoxNew/androBox -P $HOME
+          wget -q https://raw.githubusercontent.com/dannyloic33/androBox/androBoxNew/androBox -P $HOME
           mv $HOME/androBox $PATH
           chmod +x $PATH/androBox
           exit
