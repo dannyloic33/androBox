@@ -15,7 +15,7 @@ exit
 
 install_repo_files(){
 
-git clone https://github.com/Pipetto-crypto/androBox.git -b androBoxNew
+git clone https://github.com/dannyloic33/androBox.git -b androBoxNew
 
 for item in $HOME/androBox/scripts/*
 do
